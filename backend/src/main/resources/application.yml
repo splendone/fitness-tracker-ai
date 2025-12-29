@@ -1,0 +1,116 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: fitness-tracker-ai
+  
+  # 数据源配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/fitness_tracker?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+    
+    # Druid连接池配置
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+  
+  # Redis配置
+  redis:
+    host: localhost
+    port: 6379
+    password: 
+    database: 0
+    timeout: 5000
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        max-wait: -1ms
+  
+  # Jackson配置
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: false
+
+# MyBatis-Plus配置
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.fitness.tracker.entity
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 日志配置
+logging:
+  level:
+    com.fitness.tracker: debug
+    com.fitness.tracker.mapper: debug
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n'
+
+# 微信小程序配置
+wechat:
+  miniapp:
+    appid: your_appid
+    secret: your_secret
+    token: your_token
+    aes-key: your_aes_key
+
+# JWT配置
+jwt:
+  secret: fitness-tracker-ai-secret-key-2024
+  expiration: 604800000  # 7天(毫秒)
+  header: Authorization
+  prefix: Bearer 
+
+# AI接口配置
+ai:
+  enabled: true
+  provider: custom  # baidu, keep, custom
+  api:
+    url: https://api.openai.com/v1/chat/completions
+    key: your_api_key
+    model: gpt-3.5-turbo
+    timeout: 30000
+
+# 文件上传配置
+file:
+  upload:
+    path: /data/fitness-tracker/uploads
+    max-size: 10485760  # 10MB
+    allowed-types: jpg,jpeg,png,gif
+
+# 业务配置
+business:
+  # 经验值配置
+  experience:
+    per-minute: 10  # 每分钟运动获得经验值
+    level-up-base: 1000  # 升级基础经验值
+  # 排行榜配置
+  leaderboard:
+    cache-ttl: 300  # 缓存时间(秒)
+    top-limit: 100  # 排行榜显示人数

@@ -1,0 +1,36 @@
+{
+    "name": "fitness-tracker-ai",
+    "appid": "",
+    "description": "AI健身数据追踪小程序",
+    "versionName": "1.0.0",
+    "versionCode": "100",
+    "transformPx": false,
+    "app-plus": {
+        "usingComponents": true
+    },
+    "h5": {
+        "title": "健身追踪",
+        "domain": ""
+    },
+    "mp-weixin": {
+        "appid": "",
+        "setting": {
+            "urlCheck": false,
+            "es6": true,
+            "postcss": true,
+            "minified": true
+        },
+        "usingComponents": true,
+        "permission": {
+            "scope.userLocation": {
+                "desc": "你的位置信息将用于小程序位置接口的效果展示"
+            }
+        },
+        "requiredPrivateInfos": [
+            "getLocation"
+        ]
+    },
+    "uniStatistics": {
+        "enable": false
+    }
+}
